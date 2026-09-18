@@ -1,5 +1,5 @@
 import "./styles.css";
-import { cast } from "./data.js";
+import { cast, credits } from "./data.js";
 
 const castList = document.querySelector("#cast-list");
 
@@ -29,4 +29,13 @@ cast.forEach(({ role, performers }) => {
 
   group.append(heading, grid);
   castList.append(group);
+});
+
+const creditsList = document.querySelector("#credits-list");
+
+credits.forEach(({ role, name }) => {
+  const credit = document.createElement("div");
+  credit.className = "credit-row";
+  credit.innerHTML = `<dt>${role}</dt><dd>${name}</dd>`;
+  creditsList.append(credit);
 });

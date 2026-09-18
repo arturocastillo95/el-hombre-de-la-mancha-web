@@ -95,3 +95,8 @@ export const cast = [
     ],
   },
 ];
+
+export const credits = [
+  { role: "Dirección", name: "José Arturo Castillo" },
+  { role: "Diseño de vestuario", name: "Ana Siller Alderete" },
+];
