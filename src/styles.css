@@ -366,6 +366,7 @@ img { display: block; max-width: 100%; height: auto; }
   .synopsis { grid-template-columns: 70px 1fr; gap: 24px; padding-block: 84px; }
   .director-section { padding-block: 84px 90px; }
   .creative-section { padding-block: 84px 90px; }
+  .creative-grid { grid-template-columns: repeat(3, minmax(0, 250px)); }
   .cast-section { padding-block: 84px 120px; }
   .cast-grid { grid-template-columns: repeat(4, minmax(0, 250px)); gap: 28px 20px; }
   .role-group { padding-bottom: 70px; margin-bottom: 70px; }

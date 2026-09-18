@@ -115,4 +115,10 @@ export const creativeTeam = [
     image: "mario-castillo.webp",
     position: "50% 22%",
   },
+  {
+    role: "Diseño y elaboración de escenografía",
+    name: "Raymundo Bear",
+    image: "raymundo-bear.webp",
+    position: "44% 50%",
+  },
 ];
