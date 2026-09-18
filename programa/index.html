@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#8d1d0d" />
+    <meta name="description" content="Programa digital y elenco de El Hombre de la Mancha, el musical." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:title" content="Programa — El Hombre de la Mancha" />
+    <meta property="og:description" content="Conoce la historia y al elenco de El Hombre de la Mancha, el musical." />
+    <meta property="og:image" content="/assets/brand/og-hombre-de-la-mancha.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/assets/brand/logo.webp" />
+    <title>Programa — El Hombre de la Mancha</title>
+  </head>
+  <body class="program-page">
+    <a class="skip-link" href="#elenco">Saltar al elenco</a>
+    <header class="program-header">
+      <nav class="top-nav" aria-label="Navegación principal">
+        <a class="back-link" href="/" aria-label="Volver al inicio">
+          <span aria-hidden="true">←</span> Inicio
+        </a>
+      </nav>
+      <div class="program-hero">
+        <img src="/assets/brand/logo.webp" alt="El Hombre de la Mancha, el musical" width="1400" height="688" />
+      </div>
+    </header>
+
+    <main>
+      <section class="synopsis" aria-labelledby="historia-title">
+        <div class="section-number" aria-hidden="true">I</div>
+        <div>
+          <h1 id="historia-title">La historia</h1>
+          <p>En una prisión de Sevilla, Miguel de Cervantes transforma su defensa ante los reclusos en una representación de su novela. Así nace Alonso Quijano, un hombre que decide convertirse en Don Quijote y recorrer La Mancha junto a su fiel escudero, Sancho Panza. Armado con una mirada capaz de convertir ventas en castillos y molinos en gigantes, el caballero desafía la dureza del mundo. En Aldonza reconoce a Dulcinea y le revela una dignidad que ella había olvidado. Entre humor, música y esperanza, la historia celebra el valor de sostener los ideales y atreverse a perseguir el sueño imposible.</p>
+        </div>
+      </section>
+
+      <section class="cast-section" id="elenco" aria-labelledby="cast-title">
+        <div class="section-heading">
+          <span class="section-number" aria-hidden="true">II</span>
+          <h2 id="cast-title">Elenco</h2>
+        </div>
+        <div id="cast-list"></div>
+      </section>
+    </main>
+
+    <footer class="program-footer">
+      <img src="/assets/brand/logo.webp" alt="" width="280" height="138" />
+      <a href="/">Volver al inicio</a>
+    </footer>
+    <script type="module" src="/src/programa.js"></script>
+  </body>
+</html>

@@ -1,0 +1,312 @@
+:root {
+  color-scheme: dark;
+  --ink: #160a06;
+  --ink-soft: #28100a;
+  --red: #941f0d;
+  --red-deep: #681207;
+  --gold: #edae32;
+  --cream: #ffe7a6;
+  --paper: #f7e8c5;
+  --muted: #d4b77c;
+  --line: rgba(255, 220, 147, 0.25);
+  font-family: "Avenir Next", Avenir, "Helvetica Neue", sans-serif;
+  font-synthesis: none;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+a { color: inherit; }
+
+img { display: block; max-width: 100%; height: auto; }
+
+:focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 4px;
+}
+
+.home-page {
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  background:
+    linear-gradient(180deg, rgba(85, 9, 4, 0.2), rgba(22, 6, 3, 0.82) 72%, #120604),
+    url("/assets/brand/textura.webp") center / cover fixed;
+}
+
+.home-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 26%, transparent 0 22%, rgba(21, 4, 2, 0.52) 75%);
+}
+
+.link-hub {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 32px, 520px);
+  margin: auto;
+  padding: 56px 0 36px;
+  text-align: center;
+}
+
+.brand-logo {
+  width: min(100%, 440px);
+  margin: 0 auto;
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.35));
+}
+
+.home-intro {
+  margin: 4px 0 32px;
+  color: var(--cream);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.1rem, 4vw, 1.35rem);
+  font-style: italic;
+}
+
+.link-list { display: grid; gap: 12px; }
+
+.link-button {
+  min-height: 58px;
+  display: grid;
+  grid-template-columns: 26px 1fr 26px;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 231, 166, 0.52);
+  border-radius: 8px;
+  background: rgba(33, 10, 6, 0.91);
+  color: #fff3cd;
+  text-align: left;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 650;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.link-button:hover {
+  background: var(--red-deep);
+  border-color: var(--cream);
+}
+
+.link-icon,
+.link-arrow {
+  width: 24px;
+  display: grid;
+  place-items: center;
+}
+
+.link-icon svg { width: 23px; fill: currentColor; }
+.link-arrow { color: var(--gold); font-size: 1.35rem; }
+
+.home-footer {
+  position: relative;
+  z-index: 1;
+  padding: 0 20px 22px;
+  color: rgba(255, 231, 166, 0.76);
+  text-align: center;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.85rem;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 20;
+  top: 12px;
+  left: 12px;
+  padding: 10px 14px;
+  background: var(--cream);
+  color: var(--ink);
+  transform: translateY(-160%);
+}
+
+.skip-link:focus { transform: translateY(0); }
+
+.program-page {
+  background:
+    linear-gradient(rgba(22, 10, 6, 0.97), rgba(22, 10, 6, 0.97)),
+    url("/assets/brand/textura.webp") center top / 900px auto;
+}
+
+.program-header {
+  position: relative;
+  min-height: 370px;
+  background:
+    linear-gradient(180deg, rgba(60, 7, 3, 0.25), var(--ink) 100%),
+    url("/assets/brand/textura.webp") center 43% / cover;
+  border-bottom: 1px solid var(--line);
+}
+
+.top-nav {
+  width: min(100% - 32px, 1120px);
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 2px;
+  color: var(--cream);
+  text-decoration: none;
+  font-weight: 650;
+}
+
+.back-link:hover { text-decoration: underline; text-underline-offset: 5px; }
+
+.program-hero {
+  width: min(100% - 44px, 600px);
+  margin: 24px auto 0;
+}
+
+.program-hero img { filter: drop-shadow(0 5px 18px rgba(0, 0, 0, 0.42)); }
+
+.synopsis,
+.cast-section {
+  width: min(100% - 32px, 1120px);
+  margin-inline: auto;
+}
+
+.synopsis {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 16px;
+  padding: 58px 0 70px;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-number {
+  color: var(--gold);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.synopsis h1,
+.section-heading h2 {
+  margin: 0;
+  color: var(--cream);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500;
+}
+
+.synopsis h1 { font-size: clamp(2rem, 8vw, 3.5rem); }
+
+.synopsis p {
+  max-width: 780px;
+  margin: 22px 0 0;
+  color: #ead9b3;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.05rem, 2.8vw, 1.23rem);
+  line-height: 1.75;
+}
+
+.cast-section { padding: 62px 0 90px; }
+
+.section-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 54px;
+}
+
+.section-heading h2 { font-size: clamp(2.3rem, 9vw, 4.2rem); }
+
+.role-group {
+  padding: 0 0 54px;
+  margin: 0 0 54px;
+  border-bottom: 1px solid var(--line);
+}
+
+.role-group:last-child { border-bottom: 0; margin-bottom: 0; }
+
+.role-group h3 {
+  margin: 0 0 22px;
+  color: var(--gold);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.35rem, 4.5vw, 1.8rem);
+  font-weight: 500;
+}
+
+.cast-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 250px));
+  justify-content: start;
+  gap: 20px 12px;
+}
+
+.cast-card { margin: 0; min-width: 0; }
+
+.portrait-wrap {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: #2d201a;
+  border: 1px solid rgba(255, 231, 166, 0.18);
+  border-radius: 4px;
+}
+
+.portrait-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(0.16) contrast(1.04);
+}
+
+.cast-card figcaption {
+  padding: 11px 2px 0;
+  color: #f3e5c3;
+  font-size: clamp(0.86rem, 3.2vw, 1.02rem);
+  line-height: 1.35;
+}
+
+.program-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 48px 20px;
+  background: #0d0403;
+  border-top: 1px solid var(--line);
+}
+
+.program-footer img { width: 180px; opacity: 0.85; }
+
+.program-footer a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--cream);
+  text-underline-offset: 5px;
+}
+
+@media (min-width: 720px) {
+  .program-header { min-height: 510px; }
+  .program-hero { width: min(65vw, 690px); margin-top: 34px; }
+  .synopsis { grid-template-columns: 70px 1fr; gap: 24px; padding-block: 84px; }
+  .cast-section { padding-block: 84px 120px; }
+  .cast-grid { grid-template-columns: repeat(4, minmax(0, 250px)); gap: 28px 20px; }
+  .role-group { padding-bottom: 70px; margin-bottom: 70px; }
+}
+
+@media (max-width: 390px) {
+  .link-hub { width: min(100% - 24px, 520px); }
+  .synopsis, .cast-section { width: min(100% - 24px, 1120px); }
+  .synopsis { grid-template-columns: 34px 1fr; gap: 10px; }
+  .cast-grid { gap: 18px 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition-duration: 0.01ms !important; }
+}
