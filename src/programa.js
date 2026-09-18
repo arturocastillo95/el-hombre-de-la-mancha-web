@@ -1,5 +1,30 @@
 import "./styles.css";
-import { cast, credits } from "./data.js";
+import { cast, creativeTeam, director } from "./data.js";
+
+const directorProfile = document.querySelector("#director-profile");
+directorProfile.innerHTML = `
+  <div class="director-portrait">
+    <img src="/assets/cast/${director.image}" alt="${director.name}" decoding="async" width="900" height="980" style="object-position:${director.position}">
+  </div>
+  <figcaption>${director.name}</figcaption>
+`;
+
+const creativeGrid = document.querySelector("#creative-grid");
+
+creativeTeam.forEach(({ role, name, image, position }) => {
+  const figure = document.createElement("figure");
+  figure.className = "creative-card";
+  figure.innerHTML = `
+    <div class="portrait-wrap">
+      <img src="/assets/cast/${image}" alt="${name}" loading="lazy" decoding="async" width="720" height="900" style="object-position:${position}">
+    </div>
+    <figcaption>
+      <span>${role}</span>
+      <strong>${name}</strong>
+    </figcaption>
+  `;
+  creativeGrid.append(figure);
+});
 
 const castList = document.querySelector("#cast-list");
 
@@ -29,13 +54,4 @@ cast.forEach(({ role, performers }) => {
 
   group.append(heading, grid);
   castList.append(group);
-});
-
-const creditsList = document.querySelector("#credits-list");
-
-credits.forEach(({ role, name }) => {
-  const credit = document.createElement("div");
-  credit.className = "credit-row";
-  credit.innerHTML = `<dt>${role}</dt><dd>${name}</dd>`;
-  creditsList.append(credit);
 });

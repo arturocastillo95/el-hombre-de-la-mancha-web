@@ -96,7 +96,23 @@ export const cast = [
   },
 ];
 
-export const credits = [
-  { role: "Dirección", name: "José Arturo Castillo" },
-  { role: "Diseño de vestuario", name: "Ana Siller Alderete" },
+export const director = {
+  name: "José Arturo Castillo",
+  image: "jose-arturo-castillo.webp",
+  position: "50% 24%",
+};
+
+export const creativeTeam = [
+  {
+    role: "Diseño de vestuario",
+    name: "Ana Siller Alderete",
+    image: "ana-siller-alderete.webp",
+    position: "50% 25%",
+  },
+  {
+    role: "Escenografía",
+    name: "Mario Castillo",
+    image: "mario-castillo.webp",
+    position: "50% 22%",
+  },
 ];
