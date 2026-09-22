@@ -65,15 +65,27 @@ img { display: block; max-width: 100%; height: auto; }
   filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.35));
 }
 
+.home-title { margin: 0; }
+
 .home-intro {
-  margin: 4px 0 32px;
+  margin: 4px 0 10px;
   color: var(--cream);
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(1.1rem, 4vw, 1.35rem);
   font-style: italic;
 }
 
+.home-description {
+  max-width: 440px;
+  margin: 0 auto 28px;
+  color: rgba(247, 232, 197, 0.82);
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+
 .link-list { display: grid; gap: 12px; }
+
+.noscript-links { margin-top: 12px; }
 
 .link-button {
   min-height: 58px;

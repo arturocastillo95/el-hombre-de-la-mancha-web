@@ -1,0 +1,11 @@
+{
+  "name": "El Hombre de la Mancha — El Musical",
+  "short_name": "La Mancha",
+  "description": "Programa de mano y redes oficiales de El Hombre de la Mancha, el musical.",
+  "lang": "es-MX",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#160a06",
+  "theme_color": "#8d1d0d"
+}

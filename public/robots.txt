@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://el-hombre-de-la-mancha-musical.netlify.app/sitemap.xml
