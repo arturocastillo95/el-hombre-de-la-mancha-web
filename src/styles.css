@@ -34,9 +34,11 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 .home-page {
-  min-height: 100svh;
+  height: 100svh;
+  height: 100dvh;
+  overflow: hidden;
   display: grid;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: minmax(0, 1fr) auto auto;
   background:
     linear-gradient(180deg, rgba(85, 9, 4, 0.2), rgba(22, 6, 3, 0.82) 72%, #120604),
     url("/assets/brand/textura.webp") center / cover fixed;
@@ -54,8 +56,13 @@ img { display: block; max-width: 100%; height: auto; }
   position: relative;
   z-index: 1;
   width: min(100% - 32px, 520px);
-  margin: auto;
-  padding: 56px 0 36px;
+  min-height: 0;
+  height: 100%;
+  margin: 0 auto;
+  padding: clamp(8px, 2vh, 24px) 0 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
 }
 
@@ -65,7 +72,8 @@ img { display: block; max-width: 100%; height: auto; }
   filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.35));
 }
 
-.home-title { margin: 0; }
+.home-title { margin: 0; min-height: 0; flex: 0 1 234px; }
+.home-title .brand-logo { height: 100%; width: 100%; object-fit: contain; }
 
 .home-intro {
   margin: 4px 0 10px;
@@ -77,7 +85,7 @@ img { display: block; max-width: 100%; height: auto; }
 
 .home-description {
   max-width: 440px;
-  margin: 0 auto 28px;
+  margin: 0 auto 16px;
   color: rgba(247, 232, 197, 0.82);
   font-size: 0.94rem;
   line-height: 1.5;
@@ -123,11 +131,56 @@ img { display: block; max-width: 100%; height: auto; }
 .home-footer {
   position: relative;
   z-index: 1;
-  padding: 0 20px 22px;
+  padding: 8px 20px max(8px, env(safe-area-inset-bottom));
   color: rgba(255, 231, 166, 0.76);
   text-align: center;
   font-family: Georgia, "Times New Roman", serif;
   font-size: 0.85rem;
+}
+
+.home-gallery { position: relative; z-index: 1; min-width: 0; }
+.gallery-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: min(100% - 32px, 960px);
+  margin: 0 auto;
+  color: var(--cream);
+  font-size: 0.8rem;
+}
+.gallery-toggle {
+  min-height: 44px;
+  padding: 8px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.gallery-window { overflow: hidden; }
+.gallery-track { display: flex; width: max-content; animation: gallery-drift 180s linear infinite; }
+.gallery-group { display: flex; flex: none; gap: 8px; padding-right: 8px; }
+.gallery-group img { height: clamp(64px, 13dvh, 120px); width: auto; max-width: none; flex: none; border-radius: 3px; }
+.gallery-track.is-paused { animation-play-state: paused; }
+@media (hover: hover) {
+  .gallery-window:hover .gallery-track { animation-play-state: paused; }
+}
+@keyframes gallery-drift { to { transform: translateX(-50%); } }
+@media (max-height: 740px) {
+  .home-page .link-list { gap: 8px; }
+  .home-page .link-button { min-height: 44px; padding: 8px 12px; }
+  .home-description { font-size: 0.8rem; margin-bottom: 10px; }
+  .home-intro { margin-bottom: 6px; font-size: 1rem; }
+}
+@media (max-height: 500px) and (min-width: 600px) {
+  .home-page .link-hub { width: min(100% - 32px, 960px); display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: minmax(0, 1fr) auto auto; column-gap: 24px; }
+  .home-title { grid-column: 1; grid-row: 1; height: 100%; }
+  .home-intro { grid-column: 1; grid-row: 2; }
+  .home-description { grid-column: 1; grid-row: 3; margin: 0; }
+  .home-page .link-list { grid-column: 2; grid-row: 1 / 4; }
+  .gallery-group img { height: 52px; }
 }
 
 .skip-link {

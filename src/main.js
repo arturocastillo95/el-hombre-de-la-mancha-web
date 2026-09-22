@@ -1,5 +1,6 @@
 import "./styles.css";
 import { links } from "./data.js";
+import gallery from "./gallery.json";
 
 const icons = {
   program: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h11a3 3 0 0 1 3 3v15H7a2 2 0 0 1-2-2V3Zm2 2v12.2c.3-.1.7-.2 1-.2h9V6a1 1 0 0 0-1-1H7Zm1 14h9v-1H8a1 1 0 1 0 0 2Z"/></svg>',
@@ -22,3 +23,30 @@ links.filter(({ url }) => Boolean(url)).forEach(({ label, url, icon, external })
   if (!external) anchor.querySelector(".link-arrow").textContent = "→";
   list.append(anchor);
 });
+
+const track = document.querySelector("#gallery-track");
+const group = document.createElement("div");
+group.className = "gallery-group";
+gallery.forEach(({ src, width, height, alt }) => {
+  const image = new Image(width, height);
+  image.src = src;
+  image.alt = alt;
+  image.decoding = "async";
+  group.append(image);
+});
+track.append(group);
+const duplicate = group.cloneNode(true);
+duplicate.setAttribute("aria-hidden", "true");
+duplicate.querySelectorAll("img").forEach(image => { image.alt = ""; });
+track.append(duplicate);
+
+const toggle = document.querySelector(".gallery-toggle");
+const motionPreference = matchMedia("(prefers-reduced-motion: reduce)");
+function setPaused(paused) {
+  track.classList.toggle("is-paused", paused);
+  toggle.setAttribute("aria-pressed", String(paused));
+  toggle.textContent = paused ? "Reanudar galería" : "Pausar galería";
+}
+setPaused(motionPreference.matches);
+motionPreference.addEventListener("change", event => setPaused(event.matches));
+toggle.addEventListener("click", () => setPaused(!track.classList.contains("is-paused")));
