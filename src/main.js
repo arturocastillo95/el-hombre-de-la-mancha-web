@@ -29,26 +29,68 @@ links.filter(({ url }) => Boolean(url)).forEach(({ label, detail, url, icon, ext
 const track = document.querySelector("#gallery-track");
 const group = document.createElement("div");
 group.className = "gallery-group";
-gallery.forEach(({ src, width, height, alt }) => {
+gallery.forEach(({ src, width, height, alt }, index) => {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "gallery-photo";
+  button.dataset.index = index;
+  button.setAttribute("aria-label", `Ampliar: ${alt}`);
   const image = new Image(width, height);
-  image.src = src;
-  image.alt = alt;
+  image.dataset.src = src;
+  image.alt = "";
+  image.loading = "lazy";
+  image.fetchPriority = "low";
   image.decoding = "async";
-  group.append(image);
+  button.append(image);
+  group.append(button);
 });
 track.append(group);
 const duplicate = group.cloneNode(true);
 duplicate.setAttribute("aria-hidden", "true");
-duplicate.querySelectorAll("img").forEach(image => { image.alt = ""; });
+duplicate.querySelectorAll("button").forEach(button => { button.tabIndex = -1; });
 track.append(duplicate);
 
-const toggle = document.querySelector(".gallery-toggle");
+// Load only images approaching the visible strip, including during animation.
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(({ target, isIntersecting }) => {
+    if (!isIntersecting) return;
+    target.src = target.dataset.src;
+    observer.unobserve(target);
+  });
+}, { root: document.querySelector(".gallery-window"), rootMargin: "0px 240px" });
+track.querySelectorAll("img").forEach(image => observer.observe(image));
+
+const dialog = document.querySelector(".photo-dialog");
+const fullImage = document.querySelector(".photo-full");
+const status = document.querySelector(".photo-status");
 const motionPreference = matchMedia("(prefers-reduced-motion: reduce)");
-function setPaused(paused) {
-  track.classList.toggle("is-paused", paused);
-  toggle.setAttribute("aria-pressed", String(paused));
-  toggle.textContent = paused ? "Reanudar galería" : "Pausar galería";
+function updateMotion() {
+  track.classList.toggle("is-paused", motionPreference.matches || dialog.open);
 }
-setPaused(motionPreference.matches);
-motionPreference.addEventListener("change", event => setPaused(event.matches));
-toggle.addEventListener("click", () => setPaused(!track.classList.contains("is-paused")));
+updateMotion();
+motionPreference.addEventListener("change", updateMotion);
+track.addEventListener("click", event => {
+  const button = event.target.closest(".gallery-photo");
+  if (!button) return;
+  const photo = gallery[Number(button.dataset.index)];
+  status.hidden = false;
+  status.textContent = "Cargando fotografía…";
+  fullImage.hidden = true;
+  fullImage.alt = photo.alt;
+  fullImage.src = photo.full;
+  dialog.showModal();
+  updateMotion();
+});
+fullImage.addEventListener("load", () => {
+  status.hidden = true;
+  fullImage.hidden = false;
+});
+fullImage.addEventListener("error", () => {
+  status.textContent = "No se pudo cargar la fotografía. Cierra e intenta de nuevo.";
+});
+document.querySelector(".photo-close").addEventListener("click", () => dialog.close());
+dialog.addEventListener("click", event => { if (event.target === dialog) dialog.close(); });
+dialog.addEventListener("close", () => {
+  fullImage.removeAttribute("src");
+  updateMotion();
+});
