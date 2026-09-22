@@ -21,8 +21,8 @@ links.filter(({ url }) => Boolean(url)).forEach(({ label, detail, url, icon, ext
     anchor.target = "_blank";
     anchor.rel = "noopener noreferrer";
   }
-  anchor.innerHTML = `<span class="link-icon">${icons[icon]}</span><span>${label}${detail ? `<span class="link-detail">${detail}</span>` : ""}</span><span class="link-arrow" aria-hidden="true">↗</span>`;
-  if (!external) anchor.querySelector(".link-arrow").textContent = "→";
+  const arrowPath = external ? "M6 18 18 6M6 6h12v12" : "M4 12h16m-6-6 6 6-6 6";
+  anchor.innerHTML = `<span class="link-icon">${icons[icon]}</span><span>${label}${detail ? `<span class="link-detail">${detail}</span>` : ""}</span><span class="link-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="${arrowPath}" /></svg></span>`;
   list.append(anchor);
 });
 

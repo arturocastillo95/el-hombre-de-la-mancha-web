@@ -74,6 +74,10 @@ img { display: block; max-width: 100%; height: auto; }
 
 .home-title { margin: 0; min-height: 0; flex: 0 1 234px; }
 .home-title .brand-logo { height: 100%; width: 100%; object-fit: contain; }
+@media (max-width: 600px) {
+  .home-title { flex-basis: 164px; }
+  .home-title .brand-logo { width: 78%; max-width: 300px; }
+}
 
 .home-intro {
   margin: 4px 0 10px;
@@ -135,6 +139,7 @@ img { display: block; max-width: 100%; height: auto; }
 
 .link-icon svg { width: 23px; fill: currentColor; }
 .link-arrow { color: var(--gold); font-size: 1.35rem; }
+.link-arrow svg { width: 22px; height: 22px; }
 
 .home-footer {
   position: relative;
