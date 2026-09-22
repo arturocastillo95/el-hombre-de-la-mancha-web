@@ -1,5 +1,12 @@
 export const links = [
   {
+    label: "Boletos · Monterrey",
+    detail: "13 de noviembre de 2026",
+    url: "https://filacero.mx/tickets/es/entradas-teatro-el-hombre-de-la-mancha---el-musical-monterrey",
+    icon: "ticket",
+    external: true,
+  },
+  {
     label: "Programa de mano",
     url: "/programa/",
     icon: "program",

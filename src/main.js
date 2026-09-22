@@ -3,6 +3,7 @@ import { links } from "./data.js";
 import gallery from "./gallery.json";
 
 const icons = {
+  ticket: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v5a2 2 0 0 0 0 4v5H3v-5a2 2 0 0 0 0-4V5Zm2 2v1.5a4 4 0 0 1 0 7V17h14v-1.5a4 4 0 0 1 0-7V7H5Zm9 1h2v3h-2V8Zm0 5h2v3h-2v-3Z"/></svg>',
   program: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h11a3 3 0 0 1 3 3v15H7a2 2 0 0 1-2-2V3Zm2 2v12.2c.3-.1.7-.2 1-.2h9V6a1 1 0 0 0-1-1H7Zm1 14h9v-1H8a1 1 0 1 0 0 2Z"/></svg>',
   whatsapp: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a9.8 9.8 0 0 0-8.5 14.7L2 22l5.5-1.4A10 10 0 1 0 12 2Zm0 2a8 8 0 0 1 0 16 7.9 7.9 0 0 1-4.1-1.1l-.4-.2-2.6.7.7-2.5-.3-.4A8 8 0 0 1 12 4Zm-3 3.5c-.2 0-.5.1-.7.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 5 4.2.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.7-.5l-2-.9c-.3-.1-.6-.2-.8.2l-.8 1c-.2.3-.4.3-.7.1a6.5 6.5 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.7l.5-.6.3-.6c.1-.2 0-.4 0-.6l-.9-2.1c-.2-.5-.5-.5-.8-.5H9Z"/></svg>',
   facebook: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-9h3l.5-3.5h-3.5V7.3c0-1 .3-1.8 1.8-1.8h1.9V2.4c-.3 0-1.5-.1-2.8-.1-2.8 0-4.7 1.7-4.7 4.8v2.4H6.5V13h3.2v9h3.8Z"/></svg>',
@@ -11,15 +12,16 @@ const icons = {
 
 const list = document.querySelector("#main-links");
 
-links.filter(({ url }) => Boolean(url)).forEach(({ label, url, icon, external }) => {
+links.filter(({ url }) => Boolean(url)).forEach(({ label, detail, url, icon, external }) => {
   const anchor = document.createElement("a");
   anchor.className = "link-button";
+  if (icon === "ticket") anchor.classList.add("ticket-link");
   anchor.href = url;
   if (external) {
     anchor.target = "_blank";
     anchor.rel = "noopener noreferrer";
   }
-  anchor.innerHTML = `<span class="link-icon">${icons[icon]}</span><span>${label}</span><span class="link-arrow" aria-hidden="true">↗</span>`;
+  anchor.innerHTML = `<span class="link-icon">${icons[icon]}</span><span>${label}${detail ? `<span class="link-detail">${detail}</span>` : ""}</span><span class="link-arrow" aria-hidden="true">↗</span>`;
   if (!external) anchor.querySelector(".link-arrow").textContent = "→";
   list.append(anchor);
 });
