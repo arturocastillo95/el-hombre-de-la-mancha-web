@@ -19,7 +19,7 @@ export const links = [
   },
   {
     label: "Síguenos en Instagram",
-    url: "",
+    url: "https://www.instagram.com/elmusicaldelamancha/",
     icon: "instagram",
     external: true,
   },
