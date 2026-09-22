@@ -1,4 +1,5 @@
 import "./styles.css";
+import "./meta-pixel.js";
 import { cast, creativeTeam, director } from "./data.js";
 
 const directorProfile = document.querySelector("#director-profile");

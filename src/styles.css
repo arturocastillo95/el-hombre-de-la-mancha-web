@@ -152,8 +152,9 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 .home-gallery { position: relative; z-index: 1; min-width: 0; }
-.gallery-window { overflow: hidden; }
-.gallery-track { display: flex; width: max-content; animation: gallery-drift 180s linear infinite; }
+.gallery-window { overflow-x: auto; overflow-y: hidden; scrollbar-width: none; touch-action: pan-x; overscroll-behavior-x: contain; scroll-behavior: auto; }
+.gallery-window::-webkit-scrollbar { display: none; }
+.gallery-track { display: flex; width: max-content; }
 .gallery-group { display: flex; flex: none; }
 .gallery-photo {
   width: clamp(64px, 13dvh, 120px);
@@ -167,12 +168,6 @@ img { display: block; max-width: 100%; height: auto; }
 }
 .gallery-photo:focus-visible { outline-offset: -4px; }
 .gallery-group img { height: 100%; width: 100%; object-fit: cover; }
-.gallery-track.is-paused { animation-play-state: paused; }
-.gallery-track:focus-within { animation-play-state: paused; }
-@media (hover: hover) {
-  .gallery-window:hover .gallery-track { animation-play-state: paused; }
-}
-@keyframes gallery-drift { to { transform: translateX(-50%); } }
 .photo-dialog {
   position: fixed;
   inset: 0;
@@ -181,7 +176,7 @@ img { display: block; max-width: 100%; height: auto; }
   max-width: none;
   max-height: none;
   margin: 0;
-  padding: 56px 16px 16px;
+  padding: 56px 16px 76px;
   border: 0;
   background: rgba(10, 4, 2, 0.96);
   color: var(--paper);
@@ -203,6 +198,10 @@ img { display: block; max-width: 100%; height: auto; }
   font-size: 30px;
   cursor: pointer;
 }
+.photo-navigation { position: absolute; bottom: max(12px, env(safe-area-inset-bottom)); left: 0; width: 100%; display: flex; align-items: center; justify-content: center; gap: 24px; }
+.photo-navigation button { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid var(--line); border-radius: 4px; background: var(--ink); color: var(--cream); cursor: pointer; }
+.photo-navigation svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.photo-counter { min-width: 64px; text-align: center; font-variant-numeric: tabular-nums; }
 @media (max-height: 740px) {
   .home-page .link-list { gap: 8px; }
   .home-page .link-button { min-height: 44px; padding: 8px 12px; }

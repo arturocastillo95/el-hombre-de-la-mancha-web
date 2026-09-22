@@ -1,4 +1,5 @@
 import "./styles.css";
+import "./meta-pixel.js";
 import { links } from "./data.js";
 import gallery from "./gallery.json";
 
@@ -27,6 +28,7 @@ links.filter(({ url }) => Boolean(url)).forEach(({ label, detail, url, icon, ext
 });
 
 const track = document.querySelector("#gallery-track");
+const viewport = document.querySelector(".gallery-window");
 const group = document.createElement("div");
 group.className = "gallery-group";
 gallery.forEach(({ src, width, height, alt }, index) => {
@@ -48,7 +50,8 @@ track.append(group);
 const duplicate = group.cloneNode(true);
 duplicate.setAttribute("aria-hidden", "true");
 duplicate.querySelectorAll("button").forEach(button => { button.tabIndex = -1; });
-track.append(duplicate);
+track.prepend(duplicate);
+track.append(duplicate.cloneNode(true));
 
 // Load only images approaching the visible strip, including during animation.
 const observer = new IntersectionObserver(entries => {
@@ -57,29 +60,84 @@ const observer = new IntersectionObserver(entries => {
     target.src = target.dataset.src;
     observer.unobserve(target);
   });
-}, { root: document.querySelector(".gallery-window"), rootMargin: "0px 240px" });
+}, { root: viewport, rootMargin: "0px 240px" });
 track.querySelectorAll("img").forEach(image => observer.observe(image));
 
 const dialog = document.querySelector(".photo-dialog");
 const fullImage = document.querySelector(".photo-full");
 const status = document.querySelector(".photo-status");
 const motionPreference = matchMedia("(prefers-reduced-motion: reduce)");
-function updateMotion() {
-  track.classList.toggle("is-paused", motionPreference.matches || dialog.open);
+let groupWidth = 0;
+let pointerDown = false;
+let dragStart = 0;
+let dragScroll = 0;
+let dragged = false;
+let resumeAt = 0;
+let lastFrame = 0;
+let remainder = 0;
+let currentPhoto = 0;
+new ResizeObserver(() => {
+  const newWidth = group.getBoundingClientRect().width;
+  const progress = groupWidth ? (viewport.scrollLeft % groupWidth) / groupWidth : 0;
+  groupWidth = newWidth;
+  viewport.scrollLeft = groupWidth * (1 + progress);
+}).observe(group);
+
+// Native scrolling supports touch momentum; no sticky hover/focus animation state.
+function animate(time) {
+  const elapsed = lastFrame ? Math.min(time - lastFrame, 50) : 0;
+  lastFrame = time;
+  const keyboardFocus = viewport.querySelector(":focus-visible");
+  if (!document.hidden && !dialog.open && !pointerDown && groupWidth) {
+    if (viewport.scrollLeft < groupWidth / 2) viewport.scrollLeft += groupWidth;
+    else if (viewport.scrollLeft > groupWidth * 1.5) viewport.scrollLeft -= groupWidth;
+    if (!motionPreference.matches && !keyboardFocus && time >= resumeAt) {
+      remainder += elapsed * 0.025;
+      const pixels = Math.floor(remainder);
+      if (pixels) { viewport.scrollLeft += pixels; remainder -= pixels; }
+    }
+  }
+  requestAnimationFrame(animate);
 }
-updateMotion();
-motionPreference.addEventListener("change", updateMotion);
-track.addEventListener("click", event => {
-  const button = event.target.closest(".gallery-photo");
-  if (!button) return;
-  const photo = gallery[Number(button.dataset.index)];
+requestAnimationFrame(animate);
+viewport.addEventListener("pointerdown", event => {
+  pointerDown = true;
+  dragged = false;
+  dragStart = event.clientX;
+  dragScroll = viewport.scrollLeft;
+}, { passive: true });
+viewport.addEventListener("pointermove", event => {
+  if (pointerDown && Math.abs(event.clientX - dragStart) > 8) dragged = true;
+}, { passive: true });
+function finishGesture() {
+  if (!pointerDown) return;
+  dragged ||= Math.abs(viewport.scrollLeft - dragScroll) > 8;
+  pointerDown = false;
+  resumeAt = performance.now() + 2200;
+}
+window.addEventListener("pointerup", finishGesture, { passive: true });
+window.addEventListener("pointercancel", finishGesture, { passive: true });
+viewport.addEventListener("wheel", () => { resumeAt = performance.now() + 2200; }, { passive: true });
+viewport.addEventListener("scroll", () => {
+  if (performance.now() < resumeAt) resumeAt = performance.now() + 2200;
+}, { passive: true });
+
+function showPhoto(index) {
+  currentPhoto = (index + gallery.length) % gallery.length;
+  const photo = gallery[currentPhoto];
   status.hidden = false;
   status.textContent = "Cargando fotografía…";
   fullImage.hidden = true;
   fullImage.alt = photo.alt;
   fullImage.src = photo.full;
+  document.querySelector(".photo-counter").textContent = `${currentPhoto + 1} / ${gallery.length}`;
+}
+track.addEventListener("click", event => {
+  const button = event.target.closest(".gallery-photo");
+  if (!button) return;
+  if (dragged && event.detail !== 0) { dragged = false; return; }
+  showPhoto(Number(button.dataset.index));
   dialog.showModal();
-  updateMotion();
 });
 fullImage.addEventListener("load", () => {
   status.hidden = true;
@@ -89,8 +147,25 @@ fullImage.addEventListener("error", () => {
   status.textContent = "No se pudo cargar la fotografía. Cierra e intenta de nuevo.";
 });
 document.querySelector(".photo-close").addEventListener("click", () => dialog.close());
+document.querySelector(".photo-previous").addEventListener("click", () => showPhoto(currentPhoto - 1));
+document.querySelector(".photo-next").addEventListener("click", () => showPhoto(currentPhoto + 1));
+dialog.addEventListener("keydown", event => {
+  if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+    event.preventDefault();
+    showPhoto(currentPhoto + (event.key === "ArrowRight" ? 1 : -1));
+  }
+});
+let photoTouchX = null;
+fullImage.addEventListener("touchstart", event => { photoTouchX = event.touches.length === 1 ? event.touches[0].clientX : null; }, { passive: true });
+fullImage.addEventListener("touchend", event => {
+  if (photoTouchX !== null) {
+    const distance = event.changedTouches[0].clientX - photoTouchX;
+    if (Math.abs(distance) > 50) showPhoto(currentPhoto + (distance < 0 ? 1 : -1));
+  }
+  photoTouchX = null;
+}, { passive: true });
 dialog.addEventListener("click", event => { if (event.target === dialog) dialog.close(); });
 dialog.addEventListener("close", () => {
   fullImage.removeAttribute("src");
-  updateMotion();
+  resumeAt = performance.now() + 600;
 });
