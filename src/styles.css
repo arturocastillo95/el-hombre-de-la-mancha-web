@@ -214,6 +214,8 @@ img { display: block; max-width: 100%; height: auto; }
   .home-intro { grid-column: 1; grid-row: 2; }
   .home-description { grid-column: 1; grid-row: 3; margin: 0; }
   .home-page .link-list { grid-column: 2; grid-row: 1 / 4; }
+  .home-page .link-list { gap: 4px; }
+  .home-page .link-button { min-height: 44px; padding-block: 5px; }
   .gallery-photo { width: 52px; }
 }
 

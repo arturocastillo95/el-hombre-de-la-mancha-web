@@ -7,6 +7,13 @@ export const links = [
     external: true,
   },
   {
+    label: "Boletos · Matehuala",
+    detail: "5 de diciembre de 2026 · 19:00 h",
+    url: "https://filacero.mx/tickets/es/entradas-teatro-el-hombre-de-la-mancha-el-musical-matehuala",
+    icon: "ticket",
+    external: true,
+  },
+  {
     label: "Programa de mano",
     url: "/programa/",
     icon: "program",
