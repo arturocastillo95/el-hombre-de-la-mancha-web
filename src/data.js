@@ -1,15 +1,15 @@
 export const links = [
   {
-    label: "Boletos · Monterrey",
-    detail: "13 de noviembre de 2026",
-    url: "https://filacero.mx/tickets/es/entradas-teatro-el-hombre-de-la-mancha---el-musical-monterrey",
+    label: "Boletos · Matehuala",
+    detail: "5 de diciembre de 2026 · 19:00 h",
+    url: "https://filacero.mx/tickets/es/entradas-teatro-el-hombre-de-la-mancha-el-musical-matehuala",
     icon: "ticket",
     external: true,
   },
   {
-    label: "Boletos · Matehuala",
-    detail: "5 de diciembre de 2026 · 19:00 h",
-    url: "https://filacero.mx/tickets/es/entradas-teatro-el-hombre-de-la-mancha-el-musical-matehuala",
+    label: "Boletos · Aguascalientes",
+    detail: "27 de febrero de 2027 · 18:30 h",
+    url: "https://boletos.elmusicaldelamancha.com/events/el-hombre-de-la-mancha-aguascalientes",
     icon: "ticket",
     external: true,
   },
