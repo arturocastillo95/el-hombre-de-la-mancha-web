@@ -202,19 +202,18 @@ img { display: block; max-width: 100%; height: auto; }
 .photo-navigation button { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid var(--line); border-radius: 4px; background: var(--ink); color: var(--cream); cursor: pointer; }
 .photo-navigation svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.5; }
 .photo-counter { min-width: 64px; text-align: center; font-variant-numeric: tabular-nums; }
-@media (max-height: 740px) {
+@media (max-height: 800px) {
   .home-page .link-list { gap: 8px; }
   .home-page .link-button { min-height: 44px; padding: 8px 12px; }
   .home-description { font-size: 0.8rem; margin-bottom: 10px; }
   .home-intro { margin-bottom: 6px; font-size: 1rem; }
 }
 @media (max-height: 500px) and (min-width: 600px) {
-  .home-page .link-hub { width: min(100% - 32px, 960px); display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: minmax(0, 1fr) auto auto; column-gap: 24px; }
+  .home-page .link-hub { width: min(100% - 32px, 960px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); grid-template-rows: minmax(0, 1fr) auto auto; column-gap: 24px; }
   .home-title { grid-column: 1; grid-row: 1; height: 100%; }
   .home-intro { grid-column: 1; grid-row: 2; }
   .home-description { grid-column: 1; grid-row: 3; margin: 0; }
-  .home-page .link-list { grid-column: 2; grid-row: 1 / 4; }
-  .home-page .link-list { gap: 4px; }
+  .home-page .link-list { grid-column: 2; grid-row: 1 / 4; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; }
   .home-page .link-button { min-height: 44px; padding-block: 5px; }
   .gallery-photo { width: 52px; }
 }

@@ -14,6 +14,13 @@ export const links = [
     external: true,
   },
   {
+    label: "Boletos · Querétaro",
+    detail: "13 de marzo de 2027 · 18:30 h",
+    url: "https://boletos.elmusicaldelamancha.com/events/el-hombre-de-la-mancha-queretaro",
+    icon: "ticket",
+    external: true,
+  },
+  {
     label: "Programa de mano",
     url: "/programa/",
     icon: "program",
